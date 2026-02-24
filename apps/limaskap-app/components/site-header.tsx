@@ -8,7 +8,7 @@ export default function SiteHeader() {
         <span className="font-black text-foreground text-lg">Limaskap</span>
       </Link> */}
       <a href={`${protocol}://${rootDomain}`}>
-        <span className="font-black text-foreground text-lg">Limaskap</span>
+        <span className="font-black text-foreground text-lg">Limaskap Mono</span>
       </a>
       <div className="ml-auto flex items-center gap-2">
         <NavUser />
