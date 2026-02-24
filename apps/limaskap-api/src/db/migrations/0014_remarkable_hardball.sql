@@ -1,0 +1,1 @@
+ALTER TABLE "enrollment" ADD CONSTRAINT "enrollment_invoiceHandle_unique" UNIQUE("invoiceHandle");

@@ -1,0 +1,32 @@
+FROM node:22-alpine
+
+# Install pnpm and gcompat for better Alpine performance
+RUN npm install -g pnpm && apk add --no-cache gcompat
+
+WORKDIR /app
+
+# Copy root workspace manifests and API package manifest first for better caching
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY apps/limaskap-api/package.json apps/limaskap-api/package.json
+
+# Install API deps within workspace
+RUN pnpm install --frozen-lockfile --filter @limaskap/api...
+
+# Copy API source and build package
+COPY apps/limaskap-api apps/limaskap-api
+WORKDIR /app/apps/limaskap-api
+RUN pnpm build
+
+# Clean up dev dependencies to reduce image size
+RUN pnpm prune --prod
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 hono && \
+    chown -R hono:nodejs /app
+
+USER hono
+
+EXPOSE 9999
+
+CMD ["node", "dist/src/index.js"]

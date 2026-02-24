@@ -1,0 +1,162 @@
+[
+  {
+    "programId": 1,
+    "memberId": 1,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 1500,
+    "signedUpAt": "2024-02-15T10:30:00.000Z"
+  },
+  {
+    "programId": 1,
+    "memberId": 2,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 1500,
+    "signedUpAt": "2024-02-15T10:35:00.000Z"
+  },
+  {
+    "programId": 1,
+    "memberId": 4,
+    "status": "CONFIRMED",
+    "paymentStatus": "PENDING",
+    "amount": 1500,
+    "signedUpAt": "2024-02-20T14:15:00.000Z"
+  },
+  {
+    "programId": 1,
+    "memberId": 5,
+    "status": "WAITLISTED",
+    "paymentStatus": "NONE",
+    "amount": null,
+    "signedUpAt": "2024-02-25T16:45:00.000Z"
+  },
+  {
+    "programId": 7,
+    "memberId": 8,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 1800,
+    "signedUpAt": "2024-01-25T09:20:00.000Z"
+  },
+  {
+    "programId": 7,
+    "memberId": 10,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 1800,
+    "signedUpAt": "2024-01-28T11:45:00.000Z"
+  },
+  {
+    "programId": 7,
+    "memberId": 11,
+    "status": "CONFIRMED",
+    "paymentStatus": "PENDING",
+    "amount": 1800,
+    "signedUpAt": "2024-02-02T15:30:00.000Z"
+  },
+  {
+    "programId": 3,
+    "memberId": 6,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 1200,
+    "signedUpAt": "2024-02-10T13:00:00.000Z"
+  },
+  {
+    "programId": 9,
+    "memberId": 3,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 1600,
+    "signedUpAt": "2024-01-10T10:15:00.000Z"
+  },
+  {
+    "programId": 9,
+    "memberId": 7,
+    "status": "CONFIRMED",
+    "paymentStatus": "FAILED",
+    "amount": 1600,
+    "signedUpAt": "2024-01-18T14:20:00.000Z"
+  },
+  {
+    "programId": 5,
+    "memberId": 8,
+    "status": "CONFIRMED",
+    "paymentStatus": "PENDING",
+    "amount": 4000,
+    "signedUpAt": "2024-07-15T12:30:00.000Z"
+  },
+  {
+    "programId": 5,
+    "memberId": 12,
+    "status": "WAITLISTED",
+    "paymentStatus": "NONE",
+    "amount": null,
+    "signedUpAt": "2024-07-20T16:45:00.000Z"
+  },
+  {
+    "programId": 10,
+    "memberId": 14,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 2200,
+    "signedUpAt": "2024-06-15T11:20:00.000Z"
+  },
+  {
+    "programId": 10,
+    "memberId": 13,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 2200,
+    "signedUpAt": "2024-06-18T09:45:00.000Z"
+  },
+  {
+    "programId": 1,
+    "memberId": 9,
+    "status": "CANCELLED",
+    "paymentStatus": "REFUNDED",
+    "amount": 1500,
+    "signedUpAt": "2024-02-10T08:30:00.000Z"
+  },
+  {
+    "programId": 6,
+    "memberId": 7,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 2000,
+    "signedUpAt": "2024-03-20T14:15:00.000Z"
+  },
+  {
+    "programId": 6,
+    "memberId": 3,
+    "status": "CONFIRMED",
+    "paymentStatus": "PENDING",
+    "amount": 2000,
+    "signedUpAt": "2024-03-25T10:30:00.000Z"
+  },
+  {
+    "programId": 4,
+    "memberId": 6,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 3000,
+    "signedUpAt": "2024-02-20T16:00:00.000Z"
+  },
+  {
+    "programId": 2,
+    "memberId": 8,
+    "status": "CONFIRMED",
+    "paymentStatus": "PAID",
+    "amount": 2500,
+    "signedUpAt": "2024-06-01T12:45:00.000Z"
+  },
+  {
+    "programId": 8,
+    "memberId": 10,
+    "status": "CONFIRMED",
+    "paymentStatus": "PENDING",
+    "amount": 3500,
+    "signedUpAt": "2024-08-15T13:20:00.000Z"
+  }
+]

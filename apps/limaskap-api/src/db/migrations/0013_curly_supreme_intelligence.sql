@@ -1,0 +1,1 @@
+ALTER TABLE "enrollment" ADD COLUMN "invoiceHandle" varchar(255) NOT NULL;

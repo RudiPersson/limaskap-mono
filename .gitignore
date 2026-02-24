@@ -1,0 +1,15 @@
+node_modules/
+.turbo/
+**/.turbo/
+.DS_Store
+
+.env
+.env.*
+!.env.example
+
+dist/
+.next/
+coverage/
+**/coverage/
+
+.worktrees/

@@ -1,0 +1,1 @@
+ALTER TABLE "organization" ADD COLUMN "payment_webhook_secret" text;

@@ -1,0 +1,2 @@
+CREATE TYPE "public"."InvoiceStatus" AS ENUM('CREATED', 'PENDING', 'DUNNING', 'SETTLED', 'CANCELLED', 'AUTHORIZED', 'FAILED');--> statement-breakpoint
+ALTER TABLE "enrollment" ADD COLUMN "invoiceStatus" "InvoiceStatus" DEFAULT 'CREATED' NOT NULL;

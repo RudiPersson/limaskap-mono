@@ -1,0 +1,1 @@
+ALTER TABLE "organization" ADD COLUMN "payment_api_key" text;

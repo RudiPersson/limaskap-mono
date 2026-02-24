@@ -1,0 +1,256 @@
+[
+  {
+    "id": 1,
+    "organizationId": 1,
+    "name": "Ungdómsskúli HB",
+    "description": "Fótbóltsundirvísing fyri børn og ungdóm 6–16 ár. Læra grundleggjandi teknikkir og taktikk.",
+    "image": null,
+    "price": 150000,
+    "maxParticipants": 25,
+    "startDate": "2024-03-01T00:00:00.000Z",
+    "endDate": "2024-05-31T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "fótbóltur",
+      "ungdómur",
+      "grundleggjandi"
+    ],
+    "metadata": {
+      "ageRange": "6-16",
+      "skillLevel": "byrjari",
+      "equipment": "fótbóltsstøvlar, skinnverjur"
+    },
+    "createdAt": "2024-02-01T10:00:00.000Z",
+    "updatedAt": "2024-02-15T14:30:00.000Z"
+  },
+  {
+    "id": 2,
+    "organizationId": 1,
+    "name": "Summar Fótbóltsvenjingarlegur",
+    "description": "Intensivur summar venjingarlegur í fótbólti fyri vaksin, sum vilja bøta sínar teknisku førleikar.",
+    "image": null,
+    "price": 250000,
+    "maxParticipants": 20,
+    "startDate": "2024-06-15T00:00:00.000Z",
+    "endDate": "2024-08-15T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "fótbóltur",
+      "vaksin",
+      "teknikkur",
+      "summar"
+    ],
+    "metadata": {
+      "ageRange": "18+",
+      "skillLevel": "miðal",
+      "duration": "8 vikur"
+    },
+    "createdAt": "2024-04-01T09:00:00.000Z",
+    "updatedAt": "2024-04-20T16:45:00.000Z"
+  },
+  {
+    "id": 3,
+    "organizationId": 2,
+    "name": "Fimleiki fyri Byrjarar",
+    "description": "Grundleggjandi fimleiksundirvísing fyri øll aldursbólk. Menning av styrki, smidligheit og koordinatión.",
+    "image": null,
+    "price": 120000,
+    "maxParticipants": 15,
+    "startDate": "2024-02-15T00:00:00.000Z",
+    "endDate": "2024-04-30T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "fimleiki",
+      "byrjarar",
+      "styrki",
+      "smidligheit"
+    ],
+    "metadata": {
+      "ageRange": "16+",
+      "skillLevel": "byrjari",
+      "equipment": "rødd klæðir, vatnfløska"
+    },
+    "createdAt": "2024-01-15T11:30:00.000Z",
+    "updatedAt": "2024-02-01T08:15:00.000Z"
+  },
+  {
+    "id": 4,
+    "organizationId": 2,
+    "name": "CrossFit Havn",
+    "description": "Høgintensiv CrossFit-venjing fyri tey, sum vilja hava ymiskar avbjóðingar og koma í betri form.",
+    "image": null,
+    "price": 300000,
+    "maxParticipants": 12,
+    "startDate": "2024-03-01T00:00:00.000Z",
+    "endDate": "2024-05-31T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "crossfit",
+      "høg intensitetur",
+      "styrki",
+      "konditión"
+    ],
+    "metadata": {
+      "ageRange": "18+",
+      "skillLevel": "miðal",
+      "sessions": "3 ferðir um vikuna"
+    },
+    "createdAt": "2024-01-20T13:45:00.000Z",
+    "updatedAt": "2024-02-10T10:20:00.000Z"
+  },
+  {
+    "id": 5,
+    "organizationId": 3,
+    "name": "KÍ Talent Skúli",
+    "description": "Eftirskúli fyri evnarík ung fótbóltsleikarar við dreymum um at gerast professionellir.",
+    "image": null,
+    "price": 400000,
+    "maxParticipants": 18,
+    "startDate": "2024-08-01T00:00:00.000Z",
+    "endDate": "2024-12-15T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "talent",
+      "fótbóltur",
+      "professionellur",
+      "ungdómur"
+    ],
+    "metadata": {
+      "ageRange": "14-18",
+      "skillLevel": "framkomin",
+      "requirements": "kravt er try-out"
+    },
+    "createdAt": "2024-05-01T14:00:00.000Z",
+    "updatedAt": "2024-06-15T09:30:00.000Z"
+  },
+  {
+    "id": 6,
+    "organizationId": 3,
+    "name": "Kvinnufótbóltur KÍ",
+    "description": "Fótbóltsvenjing og kapping fyri kvinnur á øllum stigum. Lívligt og stuðlandi umhvørvi.",
+    "image": null,
+    "price": 200000,
+    "maxParticipants": 22,
+    "startDate": "2024-04-01T00:00:00.000Z",
+    "endDate": "2024-10-31T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "kvinnur",
+      "fótbóltur",
+      "kapping"
+    ],
+    "metadata": {
+      "ageRange": "16+",
+      "skillLevel": "øll stig",
+      "gender": "bert kvinnur"
+    },
+    "createdAt": "2024-02-20T12:15:00.000Z",
+    "updatedAt": "2024-03-05T15:50:00.000Z"
+  },
+  {
+    "id": 7,
+    "organizationId": 4,
+    "name": "Hondbóltur fyri Børn",
+    "description": "Stuttlig og lærurík hondbóltsundirvísing fyri børn 8–14 ár.",
+    "image": null,
+    "price": 180000,
+    "maxParticipants": 16,
+    "startDate": "2024-02-01T00:00:00.000Z",
+    "endDate": "2024-05-15T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "hondbóltur",
+      "børn",
+      "grundleggjandi"
+    ],
+    "metadata": {
+      "ageRange": "8-14",
+      "skillLevel": "byrjari",
+      "equipment": "hondbóltsskógvar, ítróttarklæðir"
+    },
+    "createdAt": "2024-01-10T10:45:00.000Z",
+    "updatedAt": "2024-01-25T14:20:00.000Z"
+  },
+  {
+    "id": 8,
+    "organizationId": 4,
+    "name": "Kappingarhondbóltur",
+    "description": "Kappingarlið í hondbólti fyri vaksin, sum vilja spæla í meistaradeildini.",
+    "image": null,
+    "price": 350000,
+    "maxParticipants": 14,
+    "startDate": "2024-09-01T00:00:00.000Z",
+    "endDate": "2025-04-30T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "hondbóltur",
+      "kapping",
+      "meistaradeild"
+    ],
+    "metadata": {
+      "ageRange": "18+",
+      "skillLevel": "framkomin",
+      "commitment": "3–4 venjingar um vikuna"
+    },
+    "createdAt": "2024-07-15T16:30:00.000Z",
+    "updatedAt": "2024-08-10T11:40:00.000Z"
+  },
+  {
+    "id": 9,
+    "organizationId": 5,
+    "name": "Hondbóltsskúli",
+    "description": "Læra grundleggjandi hondbóltsteknikkir og reglur í einum stuðlandi umhvørvi.",
+    "image": null,
+    "price": 160000,
+    "maxParticipants": 20,
+    "startDate": "2024-01-15T00:00:00.000Z",
+    "endDate": "2024-03-31T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "hondbóltur",
+      "grundleggjandi",
+      "reglur"
+    ],
+    "metadata": {
+      "ageRange": "12+",
+      "skillLevel": "byrjari",
+      "focus": "grundteknikkir og reglur"
+    },
+    "createdAt": "2023-12-01T09:20:00.000Z",
+    "updatedAt": "2024-01-05T13:15:00.000Z"
+  },
+  {
+    "id": 10,
+    "organizationId": 5,
+    "name": "VÍF Summarlegur",
+    "description": "Intensivur summar hondbóltslegur fyri tey, sum vilja bøta seg í summarhálvuni.",
+    "image": null,
+    "price": 220000,
+    "maxParticipants": 18,
+    "startDate": "2024-07-01T00:00:00.000Z",
+    "endDate": "2024-08-31T00:00:00.000Z",
+    "isPublished": true,
+    "archivedAt": null,
+    "tags": [
+      "hondbóltur",
+      "summar",
+      "intensivur"
+    ],
+    "metadata": {
+      "ageRange": "16+",
+      "skillLevel": "miðal",
+      "season": "summarlegur"
+    },
+    "createdAt": "2024-05-10T14:50:00.000Z",
+    "updatedAt": "2024-06-01T10:25:00.000Z"
+  }
+]

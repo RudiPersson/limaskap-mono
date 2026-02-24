@@ -1,0 +1,38 @@
+[
+  {
+    "userId": "OivHFJc8gpPERQ06LerRlw5NT5MelFYR",
+    "organizationId": 1,
+    "role": "ADMIN",
+    "createdAt": "2024-01-15T10:00:00.000Z"
+  },
+  {
+    "userId": "K2mBvQxRz9LpS8NfE3wH6tYuI1oAcVeJ",
+    "organizationId": 1,
+    "role": "COACH",
+    "createdAt": "2024-01-20T14:30:00.000Z"
+  },
+  {
+    "userId": "X7gDrTnW4kMz5BfP2jQaU9hCsL8eYvNm",
+    "organizationId": 2,
+    "role": "ADMIN",
+    "createdAt": "2024-01-10T09:15:00.000Z"
+  },
+  {
+    "userId": "F3nZkVbS6wGqR1cT8xAiO4pLmD7eHjYu",
+    "organizationId": 3,
+    "role": "EDITOR",
+    "createdAt": "2024-01-25T16:45:00.000Z"
+  },
+  {
+    "userId": "B9sWdEhK3lMnZ5vCq7tRfP2gUaI6oXbY",
+    "organizationId": 3,
+    "role": "COACH",
+    "createdAt": "2024-02-01T11:20:00.000Z"
+  },
+  {
+    "userId": "Q4jGrNvS8wZpL1kT6xBmF9cAeH3yDuVn",
+    "organizationId": 4,
+    "role": "ADMIN",
+    "createdAt": "2024-01-18T13:00:00.000Z"
+  }
+]

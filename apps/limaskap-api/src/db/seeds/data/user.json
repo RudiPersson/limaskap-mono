@@ -1,0 +1,92 @@
+[
+  {
+    "id": "OivHFJc8gpPERQ06LerRlw5NT5MelFYR",
+    "name": "Anna Einarsdóttir",
+    "email": "anna@example.fo",
+    "emailVerified": true,
+    "image": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "K2mBvQxRz9LpS8NfE3wH6tYuI1oAcVeJ",
+    "name": "Óli Johannesen",
+    "email": "oli@example.fo",
+    "emailVerified": true,
+    "image": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "X7gDrTnW4kMz5BfP2jQaU9hCsL8eYvNm",
+    "name": "Maria Símunardóttir",
+    "email": "maria@example.fo",
+    "emailVerified": false,
+    "image": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "F3nZkVbS6wGqR1cT8xAiO4pLmD7eHjYu",
+    "name": "Rannvá Petersen",
+    "email": "rannva@example.fo",
+    "emailVerified": true,
+    "image": "https://example.com/avatar/rannva.jpg",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "B9sWdEhK3lMnZ5vCq7tRfP2gUaI6oXbY",
+    "name": "Tummas Hansen",
+    "email": "tummas@example.fo",
+    "emailVerified": true,
+    "image": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "Q4jGrNvS8wZpL1kT6xBmF9cAeH3yDuVn",
+    "name": "Ólavur Jacobsen",
+    "email": "olavur@example.fo",
+    "emailVerified": false,
+    "image": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "M7bPzKxW2lRqE5nC8tYfG4vAaI9oSdHj",
+    "name": "Súsanna Danielsen",
+    "email": "susanna@example.fo",
+    "emailVerified": true,
+    "image": "https://example.com/avatar/susanna.jpg",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "N6cVfQsB3wLpZ8kT1xDmR4gUeH7yAoIj",
+    "name": "Pauli Andreassen",
+    "email": "pauli@example.fo",
+    "emailVerified": true,
+    "image": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "Y8hTkMrW5jGqP2nC6vBzF9sAeL4oXdUm",
+    "name": "Eyðfinna Mikkelsen",
+    "email": "eydfinna@example.fo",
+    "emailVerified": false,
+    "image": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "R3gZnVcX7wKpS9lT2xEmF6bAaI5oQdHy",
+    "name": "Hjalti Poulsen",
+    "email": "hjalti@example.fo",
+    "emailVerified": true,
+    "image": "https://example.com/avatar/hjalti.jpg",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+]
