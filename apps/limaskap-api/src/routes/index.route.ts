@@ -20,7 +20,7 @@ const router = createRouter()
     }),
     (c) => {
       return c.json({
-        message: "LIMASKAP API",
+        message: "LIMASKAP API mono test",
       }, HttpStatusCodes.OK);
     },
   );
