@@ -1,7 +1,7 @@
-import type { CreateClientConfig } from './sdk/client.gen';
+import type { CreateClientConfig } from "./sdk/client.gen";
 
-export const createClientConfig: CreateClientConfig = (config) => ({
-    ...config,
-    baseUrl: process.env.NEXT_PUBLIC_REST_API || 'http://localhost:9999',
-    credentials: 'include',
+export const createClientConfig: CreateClientConfig = config => ({
+  ...config,
+  baseUrl: process.env.NEXT_PUBLIC_REST_API || "http://localhost:3000",
+  credentials: "include",
 });

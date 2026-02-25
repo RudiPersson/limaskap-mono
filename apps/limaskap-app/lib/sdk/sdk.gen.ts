@@ -226,7 +226,7 @@ export const postApiPaymentsSessionCharge = <ThrowOnError extends boolean = fals
 
 export const getApiPaymentsHandleStatus = <ThrowOnError extends boolean = false>(options: Options<GetApiPaymentsHandleStatusData, ThrowOnError>) => {
     return (options.client ?? _heyApiClient).get<GetApiPaymentsHandleStatusResponses, GetApiPaymentsHandleStatusErrors, ThrowOnError>({
-        url: '/api/payments/:handle/status',
+        url: '/api/payments/{handle}/status',
         ...options
     });
 };
@@ -285,7 +285,7 @@ export const patchApiUserMembersById = <ThrowOnError extends boolean = false>(op
 
 export const postApiWebhooksFrisbiiOrgSlug = <ThrowOnError extends boolean = false>(options: Options<PostApiWebhooksFrisbiiOrgSlugData, ThrowOnError>) => {
     return (options.client ?? _heyApiClient).post<PostApiWebhooksFrisbiiOrgSlugResponses, PostApiWebhooksFrisbiiOrgSlugErrors, ThrowOnError>({
-        url: '/api/webhooks/frisbii/:orgSlug',
+        url: '/api/webhooks/frisbii/{orgSlug}',
         ...options,
         headers: {
             'Content-Type': 'application/json',

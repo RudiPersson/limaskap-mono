@@ -989,7 +989,7 @@ export type GetApiPaymentsHandleStatusData = {
         handle: string;
     };
     query?: never;
-    url: '/api/payments/:handle/status';
+    url: '/api/payments/{handle}/status';
 };
 
 export type GetApiPaymentsHandleStatusErrors = {
@@ -1283,7 +1283,7 @@ export type PostApiWebhooksFrisbiiOrgSlugData = {
         orgSlug: string;
     };
     query?: never;
-    url: '/api/webhooks/frisbii/:orgSlug';
+    url: '/api/webhooks/frisbii/{orgSlug}';
 };
 
 export type PostApiWebhooksFrisbiiOrgSlugErrors = {
@@ -1318,5 +1318,5 @@ export type PostApiWebhooksFrisbiiOrgSlugResponses = {
 export type PostApiWebhooksFrisbiiOrgSlugResponse = PostApiWebhooksFrisbiiOrgSlugResponses[keyof PostApiWebhooksFrisbiiOrgSlugResponses];
 
 export type ClientOptions = {
-    baseUrl: 'http://localhost:9999' | (string & {});
+    baseUrl: 'http://localhost:3000' | (string & {});
 };

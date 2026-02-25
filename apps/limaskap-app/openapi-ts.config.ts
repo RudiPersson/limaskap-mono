@@ -1,7 +1,7 @@
 import { defineConfig } from "@hey-api/openapi-ts";
 
 export default defineConfig({
-  input: "http://localhost:9999/doc", // sign up at app.heyapi.dev
+  input: "http://localhost:3000/doc",
   output: "lib/sdk",
   plugins: [
     {

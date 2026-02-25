@@ -1,7 +1,7 @@
-import { createAuthClient } from "better-auth/react"; // make sure to import from better-auth/react
+import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_REST_API,
+  baseURL: process.env.NEXT_PUBLIC_REST_API || "http://localhost:3000",
 });
 
 export const {
@@ -12,5 +12,5 @@ export const {
   signOut,
   resetPassword,
 } = authClient;
-// export type Session = typeof authClient.$Infer.Session;
+
 export type User = typeof authClient.$Infer.Session.user;

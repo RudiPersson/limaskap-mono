@@ -20,14 +20,13 @@ Tech stack:
 - Tailwind + shadcn/ui
 - OpenAPI-generated SDK client
 
-## How It Relates To `limaskap-api`
+## Backend Integration
 
-This app depends on `apps/limaskap-api` for all core business data and auth.
+`limaskap-app` now contains both frontend and backend runtime.
 
-- Calls backend endpoints through generated SDK in `lib/sdk`
-- Uses auth endpoints from API (`/api/auth/*`)
-- Reads organizations/programs/members/enrollments from API routes
-- Assumes API OpenAPI spec at `http://localhost:9999/doc` when generating SDK locally
+- Backend endpoints are implemented in `app/api/*`
+- Auth endpoints are served from `app/api/auth/*`
+- OpenAPI is exposed at `http://localhost:3000/doc` for SDK generation
 
 If API contracts change, regenerate SDK:
 
@@ -67,7 +66,7 @@ pnpm install
 2. Set environment variables (for example in `.env.local`):
 
 ```bash
-NEXT_PUBLIC_REST_API=http://localhost:9999
+NEXT_PUBLIC_REST_API=http://localhost:3000
 ```
 
 3. Start development server:
@@ -99,4 +98,4 @@ When changing this app, verify:
 
 1. The API route exists and contract matches generated types.
 2. Authenticated calls include required headers/cookies.
-3. Any API route/schema changes in `apps/limaskap-api` are followed by SDK regeneration here.
+3. Any API route/schema changes in `app/api/*` are followed by SDK regeneration here.
