@@ -6,7 +6,6 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "openapi-ts": "openapi-ts",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "node -e \"console.log('No tests configured for @limaskap/app')\""
@@ -44,7 +43,6 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "0.82.3",
     "@tailwindcss/postcss": "^4.1.6",
     "@types/node": "^22.15.17",
     "@types/react": "19.2.2",

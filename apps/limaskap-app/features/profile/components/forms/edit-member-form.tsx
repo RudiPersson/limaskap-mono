@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -21,44 +22,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { editMember } from "@/features/profile/server/actions/members";
 import { profileMemberSchema } from "@/features/profile/schemas/members";
-import { toast } from "sonner";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  patchApiUserMembersByIdMutation,
-  getApiUserMembersOptions,
-} from "@/lib/sdk/@tanstack/react-query.gen";
 import type { UserMember } from "@/features/profile/types";
-import { formatApiError } from "@/lib/utils";
+import { toast } from "sonner";
 
 type EditMemberFormProps = {
   member: UserMember;
   onSuccess?: () => void;
+  onUpdated?: (member: UserMember) => void;
 };
 
-export function EditMemberForm({ member, onSuccess }: EditMemberFormProps) {
-  const queryClient = useQueryClient();
+function toDateInput(value: string | Date) {
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime()) ? "" : date.toISOString().split("T")[0];
+}
 
-  const mutation = useMutation({
-    ...patchApiUserMembersByIdMutation(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: getApiUserMembersOptions().queryKey,
-      });
-      toast.success("Member updated successfully");
-      onSuccess?.();
-    },
-    onError: (error) => {
-      toast.error(formatApiError(error) || "Failed to update member");
-    },
-  });
+export function EditMemberForm({ member, onSuccess, onUpdated }: EditMemberFormProps) {
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof profileMemberSchema>>({
     resolver: zodResolver(profileMemberSchema),
     defaultValues: {
       firstName: member.firstName,
       lastName: member.lastName,
-      birthDate: member.birthDate?.split("T")[0] || "",
+      birthDate: toDateInput(member.birthDate),
       gender: member.gender,
       addressLine1: member.addressLine1 || "",
       city: member.city || "",
@@ -68,13 +56,19 @@ export function EditMemberForm({ member, onSuccess }: EditMemberFormProps) {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof profileMemberSchema>) {
-    await mutation.mutateAsync(
-      {
-        path: { id: member.id },
-        body: values,
-      } as never
-    );
+  function onSubmit(values: z.infer<typeof profileMemberSchema>) {
+    startTransition(async () => {
+      const result = await editMember(member.id, values);
+
+      if (result.error || !result.data) {
+        toast.error(result.message || "Failed to update member");
+        return;
+      }
+
+      toast.success("Member updated successfully");
+      onUpdated?.(result.data as UserMember);
+      onSuccess?.();
+    });
   }
 
   return (
@@ -260,8 +254,8 @@ export function EditMemberForm({ member, onSuccess }: EditMemberFormProps) {
         />
 
         <div className="flex justify-end space-x-2">
-          <Button type="submit" disabled={mutation.isPending}>
-            {mutation.isPending ? "Updating..." : "Update Member"}
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Updating..." : "Update Member"}
           </Button>
         </div>
       </form>

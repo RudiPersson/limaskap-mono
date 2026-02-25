@@ -1,5 +1,8 @@
 "use client";
 
+import { type FormEvent, useTransition, useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -7,76 +10,59 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import {
-  getApiUserMembersOptions,
-  getApiUserEnrollmentsOptions,
-} from "@/lib/sdk/@tanstack/react-query.gen";
+import { createEnrollment } from "@/features/programs/server/actions/enrollments";
 import type { UserEnrollmentDto } from "@/features/profile/server/contracts";
 import type { UserMember } from "@/features/profile/types";
-import { calculateAge, formatApiError } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
+import { calculateAge } from "@/lib/utils";
 import { Mars, Venus } from "lucide-react";
-import React, { useState } from "react";
 import { toast } from "sonner";
-import { postApiEnrollments } from "@/lib/sdk";
 
-type EnrollmentCheckoutResponse = {
-  checkoutUrl: string;
+type EnrollMemberProps = {
+  programId: number;
+  members: UserMember[];
+  enrollments: UserEnrollmentDto[];
 };
 
-export default function EnrollMember({ programId }: { programId: number }) {
+export default function EnrollMember({
+  programId,
+  members,
+  enrollments,
+}: EnrollMemberProps) {
   const [selectedMemberId, setSelectedMemberId] = useState<string>("");
-  const {
-    data: membersRaw,
-    error,
-    isLoading,
-  } = useQuery({ ...getApiUserMembersOptions() });
-
-  const { data: enrollmentsRaw } = useQuery({
-    ...getApiUserEnrollmentsOptions(),
-  });
-  const members = (membersRaw as UserMember[] | undefined) ?? [];
-  const enrollments = (enrollmentsRaw as UserEnrollmentDto[] | undefined) ?? [];
+  const [isPending, startTransition] = useTransition();
 
   const enrolledMemberIds = new Set(
     enrollments
-      ?.filter(
-        (e) => e.programId === programId && e.enrollmentStatus !== "CANCELLED"
+      .filter(
+        (enrollment) =>
+          enrollment.programId === programId &&
+          enrollment.enrollmentStatus !== "CANCELLED",
       )
-      .map((e) => e.memberRecordId) ?? []
+      .map((enrollment) => enrollment.memberRecordId),
   );
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
 
     if (!selectedMemberId) {
       toast.error("Please select a member");
       return;
     }
 
-    const { data: result, error: enrollmentError } = await postApiEnrollments({
-      body: {
+    startTransition(async () => {
+      const result = await createEnrollment(
         programId,
-        memberId: parseInt(selectedMemberId, 10),
-      },
-    } as never);
+        Number.parseInt(selectedMemberId, 10),
+      );
 
-    if (enrollmentError) {
-      toast.error(formatApiError(enrollmentError));
-      return;
-    }
+      if (result.error || !result.data) {
+        toast.error(result.message || "Enrollment failed");
+        return;
+      }
 
-    window.location.assign((result as EnrollmentCheckoutResponse).checkoutUrl);
+      window.location.assign(result.data.checkoutUrl);
+    });
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -87,6 +73,7 @@ export default function EnrollMember({ programId }: { programId: number }) {
         <SelectContent>
           {members.map((member) => {
             const isEnrolled = enrolledMemberIds.has(member.id);
+
             return (
               <SelectItem
                 key={member.id}
@@ -102,7 +89,7 @@ export default function EnrollMember({ programId }: { programId: number }) {
                   {member.firstName} {member.lastName}
                   {member.birthDate && (
                     <span className="text-muted-foreground text-sm">
-                      ({calculateAge(member.birthDate)} years)
+                      ({calculateAge(String(member.birthDate))} years)
                     </span>
                   )}
                   {isEnrolled && (
@@ -116,8 +103,12 @@ export default function EnrollMember({ programId }: { programId: number }) {
           })}
         </SelectContent>
       </Select>
-      <Button type="submit" className="mt-4" disabled={!selectedMemberId}>
-        Melda til
+      <Button
+        type="submit"
+        className="mt-4"
+        disabled={!selectedMemberId || isPending}
+      >
+        {isPending ? "Melda til..." : "Melda til"}
       </Button>
     </form>
   );

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import EnrollMember from "@/features/programs/components/enroll-member";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getOrganizationProgramBySubdomain } from "@/features/organizations/server/service";
+import { getUserEnrollments, getUserMembers } from "@/features/profile/server/service";
 import ProgramDetail from "@/features/programs/components/program-detail";
 import { parseId } from "@/lib/server/http";
 import { getServerViewer } from "@/lib/server/session";
 import { protocol, rootDomain } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import EnrollMember from "@/features/programs/components/enroll-member";
 import { Button } from "@/components/ui/button";
 
 export async function generateMetadata({
@@ -53,6 +54,8 @@ export default async function ProgramDetailPage({
   if (!program) {
     notFound();
   }
+  const members = viewer ? await getUserMembers(viewer) : [];
+  const enrollments = viewer ? await getUserEnrollments(viewer) : [];
 
   return (
     <>
@@ -82,7 +85,11 @@ export default async function ProgramDetailPage({
                   </Button>
                 </div>
               ) : (
-                <EnrollMember programId={program.id} />
+                <EnrollMember
+                  programId={program.id}
+                  members={members}
+                  enrollments={enrollments}
+                />
               )}
             </CardContent>
           </Card>

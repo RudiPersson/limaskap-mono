@@ -18,7 +18,7 @@ Tech stack:
 - React 19
 - TanStack Query
 - Tailwind + shadcn/ui
-- OpenAPI-generated SDK client
+- Feature-first server services + repositories
 
 ## Backend Integration
 
@@ -26,13 +26,6 @@ Tech stack:
 
 - Backend endpoints are implemented in `app/api/*`
 - Auth endpoints are served from `app/api/auth/*`
-- OpenAPI is exposed at `http://localhost:3000/doc` for SDK generation
-
-If API contracts change, regenerate SDK:
-
-```bash
-pnpm --filter @limaskap/app openapi-ts
-```
 
 Root commands are canonical in this monorepo; run commands from repository root.
 
@@ -51,9 +44,7 @@ Subdomain routing logic is implemented in `proxy.ts`.
 - `app/(subdomain)/s/[subdomain]`:
   - Tenant-specific pages (organization programs, program details, payment success)
 - `features/*`:
-  - Domain features (auth, organizations, programs, profile)
-- `lib/sdk`:
-  - OpenAPI-generated API client and query helpers
+  - Domain features (auth, organizations, programs, profile, enrollments, payments, webhooks)
 
 ## Local Development
 
@@ -88,14 +79,13 @@ pnpm --filter @limaskap/app start
 
 ## API Integration Notes
 
-- Runtime API base URL is configured in `lib/hey-api.ts` from `NEXT_PUBLIC_REST_API`.
-- SDK generation config lives in `openapi-ts.config.ts`.
-- Tenant data reads are API-driven via the generated SDK.
+- Server pages/actions call feature services directly where possible.
+- API routes remain thin adapters around feature services.
 
 ## Collaboration Contract With API
 
 When changing this app, verify:
 
-1. The API route exists and contract matches generated types.
+1. The API route exists and behavior matches consumers.
 2. Authenticated calls include required headers/cookies.
-3. Any API route/schema changes in `app/api/*` are followed by SDK regeneration here.
+3. Any API route/schema changes in `app/api/*` stay aligned with client usage.

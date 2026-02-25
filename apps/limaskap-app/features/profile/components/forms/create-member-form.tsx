@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -20,36 +21,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { createMember } from "@/features/profile/server/actions/members";
 import { profileMemberSchema } from "@/features/profile/schemas/members";
+import type { UserMember } from "@/features/profile/types";
 import { toast } from "sonner";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  postApiUserMembersMutation,
-  getApiUserMembersOptions,
-} from "@/lib/sdk/@tanstack/react-query.gen";
-import { formatApiError } from "@/lib/utils";
 
 type CreateMemberFormProps = {
   onSuccess?: () => void;
+  onCreated?: (member: UserMember) => void;
 };
 
-export function CreateMemberForm({ onSuccess }: CreateMemberFormProps) {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    ...postApiUserMembersMutation(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: getApiUserMembersOptions().queryKey,
-      });
-      toast.success("Member created successfully");
-      form.reset();
-      onSuccess?.();
-    },
-    onError: (error) => {
-      toast.error(formatApiError(error) || "Failed to create member");
-    },
-  });
+export function CreateMemberForm({ onSuccess, onCreated }: CreateMemberFormProps) {
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof profileMemberSchema>>({
     resolver: zodResolver(profileMemberSchema),
@@ -67,17 +50,24 @@ export function CreateMemberForm({ onSuccess }: CreateMemberFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof profileMemberSchema>) {
-    mutation.mutate({ body: values } as never);
+    startTransition(async () => {
+      const result = await createMember(values);
+
+      if (result.error || !result.data) {
+        toast.error(result.message || "Failed to create member");
+        return;
+      }
+
+      toast.success("Member created successfully");
+      onCreated?.(result.data as UserMember);
+      form.reset();
+      onSuccess?.();
+    });
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {/* {error && (
-          <div className="bg-destructive/15 text-destructive px-4 py-3 rounded-md">
-            <p className="text-sm">{error}</p>
-          </div>
-        )} */}
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -253,8 +243,8 @@ export function CreateMemberForm({ onSuccess }: CreateMemberFormProps) {
         />
 
         <div className="flex justify-end space-x-2">
-          <Button type="submit" disabled={mutation.isPending}>
-            {mutation.isPending ? "Creating..." : "Create Member"}
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Creating..." : "Create Member"}
           </Button>
         </div>
       </form>

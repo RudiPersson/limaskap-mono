@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,52 +14,35 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { UserMember } from "@/features/profile/types";
-import { calculateAge } from "@/lib/utils";
-// import { getUserMembers } from "@/lib/sdk";
-// import { headers } from "next/headers";
-import { Mars, MoreHorizontal, Venus, Pencil } from "lucide-react";
-import React from "react";
 import { CreateMemberDialog } from "@/features/profile/components/create-member-dialog";
 import { EditMemberDialog } from "@/features/profile/components/edit-member-dialog";
-import { getApiUserMembersOptions } from "@/lib/sdk/@tanstack/react-query.gen";
-import { useQuery } from "@tanstack/react-query";
-import UserMembersSkeleton from "./skeletons/user-members-skeleton";
+import type { UserMember } from "@/features/profile/types";
+import { calculateAge } from "@/lib/utils";
+import { Mars, MoreHorizontal, Pencil, Venus } from "lucide-react";
+import React from "react";
 
-export default function UserMembers() {
+type UserMembersProps = {
+  initialMembers: UserMember[];
+};
+
+export default function UserMembers({ initialMembers }: UserMembersProps) {
+  const [members, setMembers] = React.useState<UserMember[]>(initialMembers);
   const [editingMember, setEditingMember] = React.useState<UserMember | null>(
-    null
+    null,
   );
 
-  const {
-    data: members,
-    error,
-    isLoading,
-  } = useQuery({ ...getApiUserMembersOptions() });
-  // const { data: members, error } = await getUserMembers({
-  //   headers: await headers(),
-  // });
+  const handleCreated = (member: UserMember) => {
+    setMembers((previous) => [member, ...previous]);
+  };
 
-  if (isLoading) {
-    return <UserMembersSkeleton />;
-  }
-
-  if (error) {
-    return (
-      <div className="flex flex-col p-4">
-        <h1 className="text-lg font-bold">Vanga limir</h1>
-        <div className="bg-destructive/15 text-destructive px-4 py-3 rounded-md">
-          <p className="font-medium">Error loading members</p>
-          <p className="text-sm">{error.message}</p>
-        </div>
-      </div>
+  const handleUpdated = (member: UserMember) => {
+    setMembers((previous) =>
+      previous.map((current) => (current.id === member.id ? member : current)),
     );
-  }
+    setEditingMember(null);
+  };
 
-  const safeMembers = (members as UserMember[] | undefined) ?? [];
-
-  // Handle empty state
-  if (safeMembers.length === 0) {
+  if (members.length === 0) {
     return (
       <div className="flex flex-col">
         <h1 className="text-lg font-bold pb-2">Vanga limir</h1>
@@ -67,11 +51,9 @@ export default function UserMembers() {
             <div className="text-center space-y-4">
               <div className="text-muted-foreground">
                 <p>Tú hevur ennå ikki stovnað nakra limi.</p>
-                <p className="text-sm">
-                  Byrja við at leggja til fyrsta liminn.
-                </p>
+                <p className="text-sm">Byrja við at leggja til fyrsta liminn.</p>
               </div>
-              <CreateMemberDialog />
+              <CreateMemberDialog onCreated={handleCreated} />
             </div>
           </CardContent>
         </Card>
@@ -83,10 +65,10 @@ export default function UserMembers() {
     <div className="flex flex-col">
       <div className="flex items-center justify-between gap-2 pb-2">
         <h1 className="leading-none font-semibold ">Vanga limir</h1>
-        <CreateMemberDialog />
+        <CreateMemberDialog onCreated={handleCreated} />
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {safeMembers.map((member) => (
+        {members.map((member) => (
           <Card key={member.id}>
             <CardHeader>
               <CardTitle className="flex items-center gap-1">
@@ -127,7 +109,7 @@ export default function UserMembers() {
                 {member.birthDate && (
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Aldur</span>
-                    <span>{calculateAge(member.birthDate)} ár</span>
+                    <span>{calculateAge(String(member.birthDate))} ár</span>
                   </div>
                 )}
                 {member.city && (
@@ -151,6 +133,7 @@ export default function UserMembers() {
       {editingMember && (
         <EditMemberDialog
           member={editingMember}
+          onUpdated={handleUpdated}
           open={!!editingMember}
           onOpenChange={(open) => !open && setEditingMember(null)}
         />

@@ -11,10 +11,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { CreateMemberForm } from "@/features/profile/components/forms/create-member-form";
+import type { UserMember } from "@/features/profile/types";
 
 import { Plus } from "lucide-react";
 
-export function CreateMemberDialog() {
+type CreateMemberDialogProps = {
+  onCreated?: (member: UserMember) => void;
+};
+
+export function CreateMemberDialog({ onCreated }: CreateMemberDialogProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -32,7 +37,10 @@ export function CreateMemberDialog() {
             Add a new family member to your account. All fields are required.
           </DialogDescription>
         </DialogHeader>
-        <CreateMemberForm onSuccess={() => setOpen(false)} />
+        <CreateMemberForm
+          onCreated={onCreated}
+          onSuccess={() => setOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   );

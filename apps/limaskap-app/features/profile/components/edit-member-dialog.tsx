@@ -15,12 +15,14 @@ type EditMemberDialogProps = {
   member: UserMember;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onUpdated?: (member: UserMember) => void;
 };
 
 export function EditMemberDialog({
   member,
   open,
   onOpenChange,
+  onUpdated,
 }: EditMemberDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -31,7 +33,11 @@ export function EditMemberDialog({
             Dagør upplýsingar fyri {member.firstName} {member.lastName}.
           </DialogDescription>
         </DialogHeader>
-        <EditMemberForm member={member} onSuccess={() => onOpenChange(false)} />
+        <EditMemberForm
+          member={member}
+          onUpdated={onUpdated}
+          onSuccess={() => onOpenChange(false)}
+        />
       </DialogContent>
     </Dialog>
   );
