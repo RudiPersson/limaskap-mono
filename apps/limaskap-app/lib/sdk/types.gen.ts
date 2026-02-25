@@ -9,14 +9,10 @@ export type GetHealthData = {
 
 export type GetHealthResponses = {
     /**
-     * Health check status
+     * Success
      */
-    200: {
-        status: 'ok';
-    };
+    200: unknown;
 };
-
-export type GetHealthResponse = GetHealthResponses[keyof GetHealthResponses];
 
 export type GetApiData = {
     body?: never;
@@ -27,14 +23,10 @@ export type GetApiData = {
 
 export type GetApiResponses = {
     /**
-     * LIMASKAP API Index
+     * Success
      */
-    200: {
-        message: string;
-    };
+    200: unknown;
 };
-
-export type GetApiResponse = GetApiResponses[keyof GetApiResponses];
 
 export type GetApiOrganizationsData = {
     body?: never;
@@ -45,387 +37,80 @@ export type GetApiOrganizationsData = {
 
 export type GetApiOrganizationsResponses = {
     /**
-     * The list of organizations
+     * Success
      */
-    200: Array<{
-        id: number;
-        name: string;
-        slug: string;
-        subdomain: string;
-        logoUrl: string | null;
-        description: string | null;
-        image: string | null;
-        email: string;
-        phone: string | null;
-        address: string | null;
-        city: string;
-        zip: string;
-        paymentApiKey: string | null;
-        paymentWebhookSecret: string | null;
-        isPublished: boolean;
-        archivedAt: string | null;
-        created_at: string;
-    }>;
+    200: unknown;
 };
 
-export type GetApiOrganizationsResponse = GetApiOrganizationsResponses[keyof GetApiOrganizationsResponses];
-
 export type PostApiOrganizationsData = {
-    /**
-     * The organization to create
-     */
-    body: {
-        name: string;
-        slug: string;
-        subdomain: string;
-        logoUrl?: string | null;
-        description?: string | null;
-        image?: string | null;
-        email: string;
-        phone?: string | null;
-        address?: string | null;
-        city: string;
-        zip: string;
-        paymentApiKey?: string | null;
-        paymentWebhookSecret?: string | null;
-        isPublished?: boolean;
-    };
+    body?: never;
     path?: never;
     query?: never;
     url: '/api/organizations';
 };
 
-export type PostApiOrganizationsErrors = {
-    /**
-     * The validation error(s)
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type PostApiOrganizationsError = PostApiOrganizationsErrors[keyof PostApiOrganizationsErrors];
-
 export type PostApiOrganizationsResponses = {
     /**
-     * The created organization
+     * Success
      */
-    201: {
-        id: number;
-        name: string;
-        slug: string;
-        subdomain: string;
-        logoUrl: string | null;
-        description: string | null;
-        image: string | null;
-        email: string;
-        phone: string | null;
-        address: string | null;
-        city: string;
-        zip: string;
-        paymentApiKey: string | null;
-        paymentWebhookSecret: string | null;
-        isPublished: boolean;
-        archivedAt: string | null;
-        created_at: string;
-    };
+    200: unknown;
 };
-
-export type PostApiOrganizationsResponse = PostApiOrganizationsResponses[keyof PostApiOrganizationsResponses];
 
 export type GetApiOrganizationsByIdData = {
     body?: never;
-    path: {
-        id: number | null;
-    };
+    path?: never;
     query?: never;
     url: '/api/organizations/{id}';
 };
 
-export type GetApiOrganizationsByIdErrors = {
-    /**
-     * Organization not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Invalid id error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type GetApiOrganizationsByIdError = GetApiOrganizationsByIdErrors[keyof GetApiOrganizationsByIdErrors];
-
 export type GetApiOrganizationsByIdResponses = {
     /**
-     * The requested organization
+     * Success
      */
-    200: {
-        id: number;
-        name: string;
-        slug: string;
-        subdomain: string;
-        logoUrl: string | null;
-        description: string | null;
-        image: string | null;
-        email: string;
-        phone: string | null;
-        address: string | null;
-        city: string;
-        zip: string;
-        paymentApiKey: string | null;
-        paymentWebhookSecret: string | null;
-        isPublished: boolean;
-        archivedAt: string | null;
-        created_at: string;
-    };
+    200: unknown;
 };
-
-export type GetApiOrganizationsByIdResponse = GetApiOrganizationsByIdResponses[keyof GetApiOrganizationsByIdResponses];
 
 export type GetApiOrganizationsByIdProgramsData = {
     body?: never;
-    path: {
-        id: number | null;
-    };
+    path?: never;
     query?: never;
     url: '/api/organizations/{id}/programs';
 };
 
-export type GetApiOrganizationsByIdProgramsErrors = {
-    /**
-     * Organization not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Invalid id error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type GetApiOrganizationsByIdProgramsError = GetApiOrganizationsByIdProgramsErrors[keyof GetApiOrganizationsByIdProgramsErrors];
-
 export type GetApiOrganizationsByIdProgramsResponses = {
     /**
-     * The requested organization with all related programs
+     * Success
      */
-    200: {
-        id: number;
-        name: string;
-        slug: string;
-        subdomain: string;
-        logoUrl: string | null;
-        description: string | null;
-        image: string | null;
-        email: string;
-        phone: string | null;
-        address: string | null;
-        city: string;
-        zip: string;
-        paymentApiKey: string | null;
-        paymentWebhookSecret: string | null;
-        isPublished: boolean;
-        archivedAt: string | null;
-        created_at: string;
-    } & {
-        programs: Array<{
-            id: number;
-            organizationId: number;
-            name: string;
-            description: string | null;
-            image: string | null;
-            price: number;
-            maxParticipants: number | null;
-            startDate: string;
-            endDate: string;
-            isPublished: boolean;
-            archivedAt: string | null;
-            tags: Array<string> | null;
-            metadata: string | number | boolean | unknown | {
-                [key: string]: unknown;
-            } | Array<unknown>;
-            createdAt: string;
-            updatedAt: string;
-        }>;
-    };
+    200: unknown;
 };
-
-export type GetApiOrganizationsByIdProgramsResponse = GetApiOrganizationsByIdProgramsResponses[keyof GetApiOrganizationsByIdProgramsResponses];
 
 export type GetApiOrganizationsSubdomainBySubdomainData = {
     body?: never;
-    path: {
-        subdomain: string;
-    };
+    path?: never;
     query?: never;
     url: '/api/organizations/subdomain/{subdomain}';
 };
 
-export type GetApiOrganizationsSubdomainBySubdomainErrors = {
-    /**
-     * Organization not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Invalid subdomain error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type GetApiOrganizationsSubdomainBySubdomainError = GetApiOrganizationsSubdomainBySubdomainErrors[keyof GetApiOrganizationsSubdomainBySubdomainErrors];
-
 export type GetApiOrganizationsSubdomainBySubdomainResponses = {
     /**
-     * The requested organization by subdomain with all related programs including enrollment counts
+     * Success
      */
-    200: {
-        id: number;
-        name: string;
-        slug: string;
-        subdomain: string;
-        logoUrl: string | null;
-        description: string | null;
-        image: string | null;
-        email: string;
-        phone: string | null;
-        address: string | null;
-        city: string;
-        zip: string;
-        paymentApiKey: string | null;
-        paymentWebhookSecret: string | null;
-        isPublished: boolean;
-        archivedAt: string | null;
-        created_at: string;
-    } & {
-        programs: Array<{
-            id: number;
-            organizationId: number;
-            name: string;
-            description: string | null;
-            image: string | null;
-            price: number;
-            maxParticipants: number | null;
-            startDate: string;
-            endDate: string;
-            isPublished: boolean;
-            archivedAt: string | null;
-            tags: Array<string> | null;
-            metadata: string | number | boolean | unknown | {
-                [key: string]: unknown;
-            } | Array<unknown>;
-            createdAt: string;
-            updatedAt: string;
-            enrollmentCount: number;
-        }>;
-    };
+    200: unknown;
 };
-
-export type GetApiOrganizationsSubdomainBySubdomainResponse = GetApiOrganizationsSubdomainBySubdomainResponses[keyof GetApiOrganizationsSubdomainBySubdomainResponses];
 
 export type GetApiOrganizationsBySubdomainProgramsByProgramIdData = {
     body?: never;
-    path: {
-        subdomain: string;
-        programId: string;
-    };
+    path?: never;
     query?: never;
     url: '/api/organizations/{subdomain}/programs/{programId}';
 };
 
-export type GetApiOrganizationsBySubdomainProgramsByProgramIdErrors = {
-    /**
-     * Organization or program not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Invalid organization or program ID error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type GetApiOrganizationsBySubdomainProgramsByProgramIdError = GetApiOrganizationsBySubdomainProgramsByProgramIdErrors[keyof GetApiOrganizationsBySubdomainProgramsByProgramIdErrors];
-
 export type GetApiOrganizationsBySubdomainProgramsByProgramIdResponses = {
     /**
-     * The requested program from the organization
+     * Success
      */
-    200: {
-        id: number;
-        organizationId: number;
-        name: string;
-        description: string | null;
-        image: string | null;
-        price: number;
-        maxParticipants: number | null;
-        startDate: string;
-        endDate: string;
-        isPublished: boolean;
-        archivedAt: string | null;
-        tags: Array<string> | null;
-        metadata: string | number | boolean | unknown | {
-            [key: string]: unknown;
-        } | Array<unknown>;
-        createdAt: string;
-        updatedAt: string;
-    };
+    200: unknown;
 };
-
-export type GetApiOrganizationsBySubdomainProgramsByProgramIdResponse = GetApiOrganizationsBySubdomainProgramsByProgramIdResponses[keyof GetApiOrganizationsBySubdomainProgramsByProgramIdResponses];
 
 export type GetApiProgramsData = {
     body?: never;
@@ -436,298 +121,66 @@ export type GetApiProgramsData = {
 
 export type GetApiProgramsResponses = {
     /**
-     * The list of programs
+     * Success
      */
-    200: Array<{
-        id: number;
-        organizationId: number;
-        name: string;
-        description: string | null;
-        image: string | null;
-        price: number;
-        maxParticipants: number | null;
-        startDate: string;
-        endDate: string;
-        isPublished: boolean;
-        archivedAt: string | null;
-        tags: Array<string> | null;
-        metadata: string | number | boolean | unknown | {
-            [key: string]: unknown;
-        } | Array<unknown>;
-        createdAt: string;
-        updatedAt: string;
-    }>;
+    200: unknown;
 };
 
-export type GetApiProgramsResponse = GetApiProgramsResponses[keyof GetApiProgramsResponses];
-
 export type PostApiProgramsData = {
-    /**
-     * The program to create
-     */
-    body: {
-        organizationId: number;
-        name: string;
-        description?: string | null;
-        image?: string | null;
-        price: number;
-        maxParticipants: number | null;
-        startDate: string | null;
-        endDate: string | null;
-        isPublished?: boolean;
-        archivedAt?: string | null;
-        tags?: Array<string> | null;
-        metadata?: string | number | boolean | unknown | {
-            [key: string]: unknown;
-        } | Array<unknown>;
-        createdAt?: string;
-        updatedAt?: string;
-    };
+    body?: never;
     path?: never;
     query?: never;
     url: '/api/programs';
 };
 
-export type PostApiProgramsErrors = {
-    /**
-     * The validation error(s)
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type PostApiProgramsError = PostApiProgramsErrors[keyof PostApiProgramsErrors];
-
 export type PostApiProgramsResponses = {
     /**
-     * The created program
+     * Success
      */
-    200: {
-        id: number;
-        organizationId: number;
-        name: string;
-        description: string | null;
-        image: string | null;
-        price: number;
-        maxParticipants: number | null;
-        startDate: string;
-        endDate: string;
-        isPublished: boolean;
-        archivedAt: string | null;
-        tags: Array<string> | null;
-        metadata: string | number | boolean | unknown | {
-            [key: string]: unknown;
-        } | Array<unknown>;
-        createdAt: string;
-        updatedAt: string;
-    };
+    200: unknown;
 };
-
-export type PostApiProgramsResponse = PostApiProgramsResponses[keyof PostApiProgramsResponses];
 
 export type DeleteApiProgramsByIdData = {
     body?: never;
-    path: {
-        id: number | null;
-    };
+    path?: never;
     query?: never;
     url: '/api/programs/{id}';
 };
-
-export type DeleteApiProgramsByIdErrors = {
-    /**
-     * Program not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Invalid id error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type DeleteApiProgramsByIdError = DeleteApiProgramsByIdErrors[keyof DeleteApiProgramsByIdErrors];
 
 export type DeleteApiProgramsByIdResponses = {
     /**
-     * Program deleted
+     * Success
      */
-    204: void;
+    200: unknown;
 };
-
-export type DeleteApiProgramsByIdResponse = DeleteApiProgramsByIdResponses[keyof DeleteApiProgramsByIdResponses];
 
 export type GetApiProgramsByIdData = {
     body?: never;
-    path: {
-        id: number | null;
-    };
+    path?: never;
     query?: never;
     url: '/api/programs/{id}';
 };
-
-export type GetApiProgramsByIdErrors = {
-    /**
-     * Program not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Invalid id error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type GetApiProgramsByIdError = GetApiProgramsByIdErrors[keyof GetApiProgramsByIdErrors];
 
 export type GetApiProgramsByIdResponses = {
     /**
-     * The requested program
+     * Success
      */
-    200: {
-        id: number;
-        organizationId: number;
-        name: string;
-        description: string | null;
-        image: string | null;
-        price: number;
-        maxParticipants: number | null;
-        startDate: string;
-        endDate: string;
-        isPublished: boolean;
-        archivedAt: string | null;
-        tags: Array<string> | null;
-        metadata: string | number | boolean | unknown | {
-            [key: string]: unknown;
-        } | Array<unknown>;
-        createdAt: string;
-        updatedAt: string;
-    };
+    200: unknown;
 };
 
-export type GetApiProgramsByIdResponse = GetApiProgramsByIdResponses[keyof GetApiProgramsByIdResponses];
-
 export type PatchApiProgramsByIdData = {
-    /**
-     * The program updates
-     */
-    body: {
-        organizationId?: number;
-        name?: string;
-        description?: string | null;
-        image?: string | null;
-        price?: number;
-        maxParticipants?: number | null;
-        startDate?: string | null;
-        endDate?: string | null;
-        isPublished?: boolean;
-        archivedAt?: string | null;
-        tags?: Array<string> | null;
-        metadata?: string | number | boolean | unknown | {
-            [key: string]: unknown;
-        } | Array<unknown>;
-        createdAt?: string;
-        updatedAt?: string;
-    };
-    path: {
-        id: number | null;
-    };
+    body?: never;
+    path?: never;
     query?: never;
     url: '/api/programs/{id}';
 };
 
-export type PatchApiProgramsByIdErrors = {
-    /**
-     * Program not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * The validation error(s)
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    } | {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type PatchApiProgramsByIdError = PatchApiProgramsByIdErrors[keyof PatchApiProgramsByIdErrors];
-
 export type PatchApiProgramsByIdResponses = {
     /**
-     * The updated program
+     * Success
      */
-    200: {
-        id: number;
-        organizationId: number;
-        name: string;
-        description: string | null;
-        image: string | null;
-        price: number;
-        maxParticipants: number | null;
-        startDate: string;
-        endDate: string;
-        isPublished: boolean;
-        archivedAt: string | null;
-        tags: Array<string> | null;
-        metadata: string | number | boolean | unknown | {
-            [key: string]: unknown;
-        } | Array<unknown>;
-        createdAt: string;
-        updatedAt: string;
-    };
+    200: unknown;
 };
-
-export type PatchApiProgramsByIdResponse = PatchApiProgramsByIdResponses[keyof PatchApiProgramsByIdResponses];
 
 export type GetApiEnrollmentsData = {
     body?: never;
@@ -738,293 +191,52 @@ export type GetApiEnrollmentsData = {
 
 export type GetApiEnrollmentsResponses = {
     /**
-     * The list of enrollments
+     * Success
      */
-    200: Array<{
-        id: number;
-        programId: number;
-        memberId: number;
-        status: 'CONFIRMED' | 'WAITLISTED' | 'CANCELLED';
-        paymentStatus: 'NONE' | 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED';
-        invoiceStatus: 'CREATED' | 'PENDING' | 'DUNNING' | 'SETTLED' | 'CANCELLED' | 'AUTHORIZED' | 'FAILED';
-        invoiceHandle: string;
-        amount: number | null;
-        signedUpAt: string;
-    }>;
+    200: unknown;
 };
 
-export type GetApiEnrollmentsResponse = GetApiEnrollmentsResponses[keyof GetApiEnrollmentsResponses];
-
 export type PostApiEnrollmentsData = {
-    /**
-     * The enrollment to create
-     */
-    body: {
-        programId: number;
-        memberId: number;
-    };
+    body?: never;
     path?: never;
     query?: never;
     url: '/api/enrollments';
 };
 
-export type PostApiEnrollmentsErrors = {
-    /**
-     * Program not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Enrollment already exists for this program and member
-     */
-    409: {
-        message: string;
-    };
-    /**
-     * The validation error(s)
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type PostApiEnrollmentsError = PostApiEnrollmentsErrors[keyof PostApiEnrollmentsErrors];
-
 export type PostApiEnrollmentsResponses = {
     /**
-     * The created enrollment
+     * Success
      */
-    201: {
-        orderId: string;
-        checkoutUrl: string;
-        raw?: unknown;
-    };
+    200: unknown;
 };
-
-export type PostApiEnrollmentsResponse = PostApiEnrollmentsResponses[keyof PostApiEnrollmentsResponses];
 
 export type GetApiEnrollmentsByIdData = {
     body?: never;
-    path: {
-        id: number | null;
-    };
+    path?: never;
     query?: never;
     url: '/api/enrollments/{id}';
 };
 
-export type GetApiEnrollmentsByIdErrors = {
-    /**
-     * Enrollment not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Invalid id error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type GetApiEnrollmentsByIdError = GetApiEnrollmentsByIdErrors[keyof GetApiEnrollmentsByIdErrors];
-
 export type GetApiEnrollmentsByIdResponses = {
     /**
-     * The requested enrollment
+     * Success
      */
-    200: {
-        id: number;
-        programId: number;
-        memberId: number;
-        status: 'CONFIRMED' | 'WAITLISTED' | 'CANCELLED';
-        paymentStatus: 'NONE' | 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED';
-        invoiceStatus: 'CREATED' | 'PENDING' | 'DUNNING' | 'SETTLED' | 'CANCELLED' | 'AUTHORIZED' | 'FAILED';
-        invoiceHandle: string;
-        amount: number | null;
-        signedUpAt: string;
-    };
+    200: unknown;
 };
-
-export type GetApiEnrollmentsByIdResponse = GetApiEnrollmentsByIdResponses[keyof GetApiEnrollmentsByIdResponses];
 
 export type GetApiEnrollmentsInvoiceByInvoiceHandleData = {
     body?: never;
-    path: {
-        invoiceHandle: string;
-    };
+    path?: never;
     query?: never;
     url: '/api/enrollments/invoice/{invoiceHandle}';
 };
 
-export type GetApiEnrollmentsInvoiceByInvoiceHandleErrors = {
-    /**
-     * Enrollment not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Invalid invoice handle error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type GetApiEnrollmentsInvoiceByInvoiceHandleError = GetApiEnrollmentsInvoiceByInvoiceHandleErrors[keyof GetApiEnrollmentsInvoiceByInvoiceHandleErrors];
-
 export type GetApiEnrollmentsInvoiceByInvoiceHandleResponses = {
     /**
-     * The requested enrollment
+     * Success
      */
-    200: {
-        id: number;
-        programId: number;
-        memberId: number;
-        status: 'CONFIRMED' | 'WAITLISTED' | 'CANCELLED';
-        paymentStatus: 'NONE' | 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED';
-        invoiceStatus: 'CREATED' | 'PENDING' | 'DUNNING' | 'SETTLED' | 'CANCELLED' | 'AUTHORIZED' | 'FAILED';
-        invoiceHandle: string;
-        amount: number | null;
-        signedUpAt: string;
-    };
+    200: unknown;
 };
-
-export type GetApiEnrollmentsInvoiceByInvoiceHandleResponse = GetApiEnrollmentsInvoiceByInvoiceHandleResponses[keyof GetApiEnrollmentsInvoiceByInvoiceHandleResponses];
-
-export type PostApiPaymentsSessionChargeData = {
-    /**
-     * Charge session creation request
-     */
-    body: {
-        enrollmentId: number;
-        currency?: string;
-        acceptPath?: string;
-        cancelPath?: string;
-    };
-    path?: never;
-    query?: never;
-    url: '/api/payments/session/charge';
-};
-
-export type PostApiPaymentsSessionChargeErrors = {
-    /**
-     * Invalid request
-     */
-    400: {
-        message: string;
-    };
-    /**
-     * Unauthorized
-     */
-    401: {
-        message: string;
-    };
-    /**
-     * Enrollment not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * Validation error
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type PostApiPaymentsSessionChargeError = PostApiPaymentsSessionChargeErrors[keyof PostApiPaymentsSessionChargeErrors];
-
-export type PostApiPaymentsSessionChargeResponses = {
-    /**
-     * Charge session created successfully
-     */
-    200: {
-        sessionId: string;
-        checkoutUrl: string;
-        paymentHandle: string;
-    };
-};
-
-export type PostApiPaymentsSessionChargeResponse = PostApiPaymentsSessionChargeResponses[keyof PostApiPaymentsSessionChargeResponses];
-
-export type GetApiPaymentsHandleStatusData = {
-    body?: never;
-    path: {
-        handle: string;
-    };
-    query?: never;
-    url: '/api/payments/{handle}/status';
-};
-
-export type GetApiPaymentsHandleStatusErrors = {
-    /**
-     * Payment not found
-     */
-    404: {
-        message: string;
-    };
-};
-
-export type GetApiPaymentsHandleStatusError = GetApiPaymentsHandleStatusErrors[keyof GetApiPaymentsHandleStatusErrors];
-
-export type GetApiPaymentsHandleStatusResponses = {
-    /**
-     * Payment status retrieved successfully
-     */
-    200: {
-        handle: string;
-        status: 'PENDING' | 'SUCCEEDED' | 'FAILED' | 'REFUNDED';
-        enrollmentPaymentStatus: 'NONE' | 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED';
-        amount: number;
-        currency: string;
-        frisbiiRefs: {
-            sessionId: string | null;
-            chargeId: string | null;
-            invoiceHandle: string | null;
-            transactionId: string | null;
-        };
-        createdAt: string;
-        updatedAt: string;
-    };
-};
-
-export type GetApiPaymentsHandleStatusResponse = GetApiPaymentsHandleStatusResponses[keyof GetApiPaymentsHandleStatusResponses];
 
 export type GetApiUserEnrollmentsData = {
     body?: never;
@@ -1033,36 +245,12 @@ export type GetApiUserEnrollmentsData = {
     url: '/api/user/enrollments';
 };
 
-export type GetApiUserEnrollmentsErrors = {
-    /**
-     * Unauthorized
-     */
-    401: {
-        message: string;
-    };
-};
-
-export type GetApiUserEnrollmentsError = GetApiUserEnrollmentsErrors[keyof GetApiUserEnrollmentsErrors];
-
 export type GetApiUserEnrollmentsResponses = {
     /**
-     * The list of user enrollments
+     * Success
      */
-    200: Array<{
-        enrollmentId: number;
-        memberRecordId: number;
-        programId: number;
-        memberRecordName: string;
-        programName: string;
-        programPrice: number;
-        enrollmentStatus: 'CONFIRMED' | 'WAITLISTED' | 'CANCELLED';
-        signedUpAt: string;
-        startDate: string;
-        endDate: string;
-    }>;
+    200: unknown;
 };
-
-export type GetApiUserEnrollmentsResponse = GetApiUserEnrollmentsResponses[keyof GetApiUserEnrollmentsResponses];
 
 export type GetApiUserMembersData = {
     body?: never;
@@ -1071,251 +259,82 @@ export type GetApiUserMembersData = {
     url: '/api/user/members';
 };
 
-export type GetApiUserMembersErrors = {
-    /**
-     * Unauthorized - user must be authenticated
-     */
-    401: {
-        message: string;
-    };
-};
-
-export type GetApiUserMembersError = GetApiUserMembersErrors[keyof GetApiUserMembersErrors];
-
 export type GetApiUserMembersResponses = {
     /**
-     * The list of member records for the authenticated user
+     * Success
      */
-    200: Array<{
-        id: number;
-        userId: string;
-        firstName: string;
-        lastName: string;
-        birthDate: string;
-        gender: 'male' | 'female';
-        addressLine1: string;
-        city: string;
-        postalCode: string;
-        country: string;
-        relationshipToUser: 'CHILD' | 'PARTNER' | 'GUARDIAN' | 'OTHER';
-        createdAt: string;
-        updatedAt: string;
-    }>;
+    200: unknown;
 };
 
-export type GetApiUserMembersResponse = GetApiUserMembersResponses[keyof GetApiUserMembersResponses];
-
 export type PostApiUserMembersData = {
-    /**
-     * The member record to create
-     */
-    body: {
-        firstName: string;
-        lastName: string;
-        birthDate: string;
-        gender: 'male' | 'female';
-        addressLine1: string;
-        city: string;
-        postalCode: string;
-        country: string;
-        relationshipToUser: 'CHILD' | 'PARTNER' | 'GUARDIAN' | 'OTHER';
-    };
+    body?: never;
     path?: never;
     query?: never;
     url: '/api/user/members';
 };
 
-export type PostApiUserMembersErrors = {
-    /**
-     * Unauthorized - user must be authenticated
-     */
-    401: {
-        message: string;
-    };
-    /**
-     * The validation error(s)
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type PostApiUserMembersError = PostApiUserMembersErrors[keyof PostApiUserMembersErrors];
-
 export type PostApiUserMembersResponses = {
     /**
-     * The created member record
+     * Success
      */
-    201: {
-        id: number;
-        userId: string;
-        firstName: string;
-        lastName: string;
-        birthDate: string;
-        gender: 'male' | 'female';
-        addressLine1: string;
-        city: string;
-        postalCode: string;
-        country: string;
-        relationshipToUser: 'CHILD' | 'PARTNER' | 'GUARDIAN' | 'OTHER';
-        createdAt: string;
-        updatedAt: string;
-    };
+    200: unknown;
 };
 
-export type PostApiUserMembersResponse = PostApiUserMembersResponses[keyof PostApiUserMembersResponses];
-
 export type PatchApiUserMembersByIdData = {
-    /**
-     * The member updates
-     */
-    body: {
-        firstName?: string;
-        lastName?: string;
-        birthDate?: string;
-        gender?: 'male' | 'female';
-        addressLine1?: string;
-        city?: string;
-        postalCode?: string;
-        country?: string;
-        relationshipToUser?: 'CHILD' | 'PARTNER' | 'GUARDIAN' | 'OTHER';
-    };
-    path: {
-        id: number | null;
-    };
+    body?: never;
+    path?: never;
     query?: never;
     url: '/api/user/members/{id}';
 };
 
-export type PatchApiUserMembersByIdErrors = {
-    /**
-     * Unauthorized - user must be authenticated
-     */
-    401: {
-        message: string;
-    };
-    /**
-     * Member record not found
-     */
-    404: {
-        message: string;
-    };
-    /**
-     * The validation error(s)
-     */
-    422: {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    } | {
-        success: boolean;
-        error: {
-            issues: Array<{
-                code: string;
-                path: Array<string | number>;
-                message?: string;
-            }>;
-            name: string;
-        };
-    };
-};
-
-export type PatchApiUserMembersByIdError = PatchApiUserMembersByIdErrors[keyof PatchApiUserMembersByIdErrors];
-
 export type PatchApiUserMembersByIdResponses = {
     /**
-     * The updated member record
+     * Success
      */
-    200: {
-        id: number;
-        userId: string;
-        firstName: string;
-        lastName: string;
-        birthDate: string;
-        gender: 'male' | 'female';
-        addressLine1: string;
-        city: string;
-        postalCode: string;
-        country: string;
-        relationshipToUser: 'CHILD' | 'PARTNER' | 'GUARDIAN' | 'OTHER';
-        createdAt: string;
-        updatedAt: string;
-    };
+    200: unknown;
 };
 
-export type PatchApiUserMembersByIdResponse = PatchApiUserMembersByIdResponses[keyof PatchApiUserMembersByIdResponses];
-
-export type PostApiWebhooksFrisbiiOrgSlugData = {
-    /**
-     * Frisbii webhook payload
-     */
-    body: {
-        id: string;
-        event_id: string;
-        event_type: string;
-        timestamp: string;
-        signature: string;
-        customer?: string;
-        payment_method?: string;
-        payment_method_reference?: string;
-        subscription?: string;
-        invoice?: string;
-        dispute?: string;
-        transaction?: string;
-        credit_note?: string;
-        credit?: string;
-    };
-    path: {
-        orgSlug: string;
-    };
+export type PostApiPaymentsSessionChargeData = {
+    body?: never;
+    path?: never;
     query?: never;
-    url: '/api/webhooks/frisbii/{orgSlug}';
+    url: '/api/payments/session/charge';
 };
 
-export type PostApiWebhooksFrisbiiOrgSlugErrors = {
+export type PostApiPaymentsSessionChargeResponses = {
     /**
-     * Invalid signature
+     * Success
      */
-    401: {
-        success: boolean;
-        message?: string;
-    };
-    /**
-     * Organization not found
-     */
-    404: {
-        success: boolean;
-        message?: string;
-    };
+    200: unknown;
 };
 
-export type PostApiWebhooksFrisbiiOrgSlugError = PostApiWebhooksFrisbiiOrgSlugErrors[keyof PostApiWebhooksFrisbiiOrgSlugErrors];
-
-export type PostApiWebhooksFrisbiiOrgSlugResponses = {
-    /**
-     * Webhook processed successfully
-     */
-    200: {
-        success: boolean;
-        message?: string;
-    };
+export type GetApiPaymentsByHandleStatusData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/payments/{handle}/status';
 };
 
-export type PostApiWebhooksFrisbiiOrgSlugResponse = PostApiWebhooksFrisbiiOrgSlugResponses[keyof PostApiWebhooksFrisbiiOrgSlugResponses];
+export type GetApiPaymentsByHandleStatusResponses = {
+    /**
+     * Success
+     */
+    200: unknown;
+};
+
+export type PostApiWebhooksFrisbiiData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/webhooks/frisbii';
+};
+
+export type PostApiWebhooksFrisbiiResponses = {
+    /**
+     * Success
+     */
+    200: unknown;
+};
 
 export type ClientOptions = {
     baseUrl: 'http://localhost:3000' | (string & {});

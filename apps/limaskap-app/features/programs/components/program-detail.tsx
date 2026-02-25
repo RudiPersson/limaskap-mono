@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,26 +7,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import type { ProgramDto } from "@/features/programs/server/contracts";
 import { formatPrice } from "@/lib/utils";
-import type { GetApiProgramsByIdResponse } from "@/lib/sdk";
 import { Calendar, Users, DollarSign, Tag } from "lucide-react";
-import { useState } from "react";
-import EnrollMemberDialog from "@/features/programs/components/enroll-member-dialog";
 
 type ProgramDetailProps = {
-  program: GetApiProgramsByIdResponse;
+  program: ProgramDto;
   subdomain: string;
 };
 
-function formatDateRange(startDate: string, endDate: string) {
+function formatDateRange(startDate: Date | string, endDate: Date | string) {
   const start = new Date(startDate).toLocaleDateString("sv-SE");
   const end = new Date(endDate).toLocaleDateString("sv-SE");
   return `${start} - ${end}`;
 }
 
 export default function ProgramDetail({ program }: ProgramDetailProps) {
-  const [enrollDialogOpen, setEnrollDialogOpen] = useState(false);
-
   return (
     <div className="container mx-auto py-10">
       <div className="max-w-4xl mx-auto space-y-6">

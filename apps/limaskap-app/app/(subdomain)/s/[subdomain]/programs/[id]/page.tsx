@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getApiOrganizationsBySubdomainProgramsByProgramId } from "@/lib/sdk";
-import { headers } from "next/headers";
+import { getOrganizationProgramBySubdomain } from "@/features/organizations/server/service";
 import ProgramDetail from "@/features/programs/components/program-detail";
-import { authClient } from "@/lib/auth-client";
+import { parseId } from "@/lib/server/http";
+import { getServerViewer } from "@/lib/server/session";
 import { protocol, rootDomain } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import EnrollMember from "@/features/programs/components/enroll-member";
@@ -16,12 +16,14 @@ export async function generateMetadata({
   params: Promise<{ subdomain: string; id: string }>;
 }): Promise<Metadata> {
   const { subdomain, id } = await params;
+  const programId = parseId(id);
+  if (!programId) {
+    return {
+      title: "Program Not Found",
+    };
+  }
 
-  const { data: program } =
-    await getApiOrganizationsBySubdomainProgramsByProgramId({
-      path: { subdomain, programId: id },
-      headers: await headers(),
-    });
+  const program = await getOrganizationProgramBySubdomain(subdomain, programId);
 
   if (!program) {
     return {
@@ -40,25 +42,15 @@ export default async function ProgramDetailPage({
 }: {
   params: Promise<{ subdomain: string; id: string }>;
 }) {
-  const { data: session, error: sessionError } = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
   const { subdomain, id } = await params;
-
-  const { data: program, error } =
-    await getApiOrganizationsBySubdomainProgramsByProgramId({
-      path: { subdomain, programId: id },
-      headers: await headers(),
-    });
-
-  if (sessionError) {
-    return <div>Error: {sessionError.message}</div>;
+  const viewer = await getServerViewer();
+  const programId = parseId(id);
+  if (!programId) {
+    notFound();
   }
 
-  if (error || !program) {
+  const program = await getOrganizationProgramBySubdomain(subdomain, programId);
+  if (!program) {
     notFound();
   }
 
@@ -73,7 +65,7 @@ export default async function ProgramDetailPage({
               <CardTitle>Tilmelding</CardTitle>
             </CardHeader>
             <CardContent>
-              {!session ? (
+              {!viewer ? (
                 <div className="space-y-4">
                   <p>
                     Tú mást vera innritað/ur fyri at kunna melda limir til hetta

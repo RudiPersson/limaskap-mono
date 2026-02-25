@@ -67,7 +67,7 @@ export function CreateMemberForm({ onSuccess }: CreateMemberFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof profileMemberSchema>) {
-    mutation.mutate({ body: values });
+    mutation.mutate({ body: values } as never);
   }
 
   return (

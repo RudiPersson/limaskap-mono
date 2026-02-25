@@ -12,6 +12,8 @@ import {
   getApiUserMembersOptions,
   getApiUserEnrollmentsOptions,
 } from "@/lib/sdk/@tanstack/react-query.gen";
+import type { UserEnrollmentDto } from "@/features/profile/server/contracts";
+import type { UserMember } from "@/features/profile/types";
 import { calculateAge, formatApiError } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Mars, Venus } from "lucide-react";
@@ -19,17 +21,23 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import { postApiEnrollments } from "@/lib/sdk";
 
+type EnrollmentCheckoutResponse = {
+  checkoutUrl: string;
+};
+
 export default function EnrollMember({ programId }: { programId: number }) {
   const [selectedMemberId, setSelectedMemberId] = useState<string>("");
   const {
-    data: members,
+    data: membersRaw,
     error,
     isLoading,
   } = useQuery({ ...getApiUserMembersOptions() });
 
-  const { data: enrollments } = useQuery({
+  const { data: enrollmentsRaw } = useQuery({
     ...getApiUserEnrollmentsOptions(),
   });
+  const members = (membersRaw as UserMember[] | undefined) ?? [];
+  const enrollments = (enrollmentsRaw as UserEnrollmentDto[] | undefined) ?? [];
 
   const enrolledMemberIds = new Set(
     enrollments
@@ -50,16 +58,16 @@ export default function EnrollMember({ programId }: { programId: number }) {
     const { data: result, error: enrollmentError } = await postApiEnrollments({
       body: {
         programId,
-        memberId: parseInt(selectedMemberId),
+        memberId: parseInt(selectedMemberId, 10),
       },
-    });
+    } as never);
 
     if (enrollmentError) {
       toast.error(formatApiError(enrollmentError));
       return;
     }
 
-    window.location.assign(result.checkoutUrl);
+    window.location.assign((result as EnrollmentCheckoutResponse).checkoutUrl);
   };
 
   if (isLoading) {
@@ -77,7 +85,7 @@ export default function EnrollMember({ programId }: { programId: number }) {
           <SelectValue placeholder="Choose a member" />
         </SelectTrigger>
         <SelectContent>
-          {members?.map((member) => {
+          {members.map((member) => {
             const isEnrolled = enrolledMemberIds.has(member.id);
             return (
               <SelectItem

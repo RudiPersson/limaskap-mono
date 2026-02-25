@@ -7,11 +7,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getApiEnrollmentsInvoiceByInvoiceHandleOptions } from "@/lib/sdk/@tanstack/react-query.gen";
 import { formatPrice } from "@/lib/utils";
 import { CheckCircle2, Calendar, DollarSign, FileText } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
+
+type EnrollmentInvoice = {
+  amount: number | null;
+  invoiceHandle: string;
+  invoiceStatus:
+    | "CREATED"
+    | "PENDING"
+    | "DUNNING"
+    | "SETTLED"
+    | "CANCELLED"
+    | "AUTHORIZED"
+    | "FAILED";
+  paymentStatus: "NONE" | "PENDING" | "PAID" | "FAILED" | "REFUNDED";
+  signedUpAt: string;
+};
 
 function getPaymentStatusDisplay(
   status: "NONE" | "PENDING" | "PAID" | "FAILED" | "REFUNDED"
@@ -64,18 +78,37 @@ export default function PaymentSuccessPage() {
     data: invoice,
     error: invoiceError,
     isLoading,
-  } = useQuery({
-    ...getApiEnrollmentsInvoiceByInvoiceHandleOptions({
-      path: { invoiceHandle: handle ?? "" },
-    }),
+  } = useQuery<EnrollmentInvoice>({
+    queryKey: ["enrollment-invoice", handle],
     enabled: !!handle,
-    refetchInterval: (query) => {
-      // Poll every 3 seconds if payment is still pending
-      const invoice = query.state.data;
-      if (invoice && invoice.invoiceStatus !== "SETTLED") {
-        return 3000; // 3 seconds
+    queryFn: async () => {
+      if (!handle) {
+        throw new Error("Invoice handle is required");
       }
-      // Stop polling once payment is settled or failed
+
+      const response = await fetch(
+        `/api/enrollments/invoice/${encodeURIComponent(handle)}`,
+      );
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error("Enrollment not found");
+        }
+
+        const body = (await response.json().catch(() => null)) as
+          | { message?: string }
+          | null;
+        throw new Error(body?.message ?? "Failed to fetch invoice");
+      }
+
+      return (await response.json()) as EnrollmentInvoice;
+    },
+    refetchInterval: (query) => {
+      const invoiceData = query.state.data;
+      if (invoiceData && invoiceData.invoiceStatus !== "SETTLED") {
+        return 3000;
+      }
+
       return false;
     },
   });
@@ -157,7 +190,6 @@ export default function PaymentSuccessPage() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-6 md:grid-cols-2">
-            {/* Amount */}
             {invoice.amount !== null && (
               <div className="flex items-center gap-3">
                 <DollarSign className="h-5 w-5 text-muted-foreground" />
@@ -170,7 +202,6 @@ export default function PaymentSuccessPage() {
               </div>
             )}
 
-            {/* Sign Up Date */}
             <div className="flex items-center gap-3">
               <Calendar className="h-5 w-5 text-muted-foreground" />
               <div>
@@ -181,7 +212,6 @@ export default function PaymentSuccessPage() {
               </div>
             </div>
 
-            {/* Payment Status */}
             <div className="flex items-center gap-3">
               <div className="h-5 w-5" />
               <div>
@@ -194,7 +224,6 @@ export default function PaymentSuccessPage() {
               </div>
             </div>
 
-            {/* Invoice Status */}
             <div className="flex items-center gap-3">
               <div className="h-5 w-5" />
               <div>
@@ -207,7 +236,6 @@ export default function PaymentSuccessPage() {
               </div>
             </div>
 
-            {/* Invoice Handle */}
             <div className="flex items-center gap-3 md:col-span-2">
               <FileText className="h-5 w-5 text-muted-foreground" />
               <div className="flex-1 min-w-0">

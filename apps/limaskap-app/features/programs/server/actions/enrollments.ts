@@ -1,38 +1,42 @@
 "use server";
 
-import { getAuthHeaders } from "@/lib/auth-headers";
-import { postApiEnrollments } from "@/lib/sdk";
+import { createEnrollmentWithCheckout } from "@/features/enrollments/server/service";
+import { DomainError } from "@/lib/server/errors";
+import { getServerViewer } from "@/lib/server/session";
 import { formatApiError } from "@/lib/utils";
 
 export async function createEnrollment(programId: number, memberId: number) {
-    const authHeaders = await getAuthHeaders();
+  const viewer = await getServerViewer();
 
-    const { error, data: result } = await postApiEnrollments({
-        body: {
-            programId,
-            memberId,
-        },
-        headers: authHeaders,
+  try {
+    const result = await createEnrollmentWithCheckout(viewer, {
+      programId,
+      memberId,
     });
 
-    if (error) {
-        // Handle specific error cases - check if it's a 409 conflict error
-        if ("message" in error && error.message?.includes("already exists")) {
-            return {
-                error: true,
-                message: "This member is already enrolled in this program.",
-            };
-        }
+    return {
+      error: false,
+      message: "Member enrolled successfully!",
+      data: result,
+    };
+  } catch (error) {
+    if (error instanceof DomainError && error.status === 409) {
+      return {
+        error: true,
+        message: "This member is already enrolled in this program.",
+      };
+    }
 
-        return {
-            error: true,
-            message: formatApiError(error),
-        };
+    if (error instanceof DomainError && error.details) {
+      return {
+        error: true,
+        message: formatApiError(error.details as never),
+      };
     }
 
     return {
-        error: false,
-        message: "Member enrolled successfully!",
-        data: result,
+      error: true,
+      message: error instanceof Error ? error.message : "An error occurred",
     };
+  }
 }

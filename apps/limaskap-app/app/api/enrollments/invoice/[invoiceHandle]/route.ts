@@ -1,4 +1,4 @@
-import { db } from "@/lib/server/db";
+import { getEnrollmentByInvoiceHandle } from "@/features/enrollments/server/service";
 import { notFound } from "@/lib/server/http";
 
 export const runtime = "nodejs";
@@ -9,11 +9,7 @@ export async function GET(
 ) {
   const { invoiceHandle } = await params;
 
-  const enrollment = await db.query.enrollmentTable.findFirst({
-    where(fields, operators) {
-      return operators.eq(fields.invoiceHandle, invoiceHandle);
-    },
-  });
+  const enrollment = await getEnrollmentByInvoiceHandle(invoiceHandle);
 
   if (!enrollment) {
     return notFound("Enrollment not found");

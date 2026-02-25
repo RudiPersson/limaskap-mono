@@ -1,5 +1,11 @@
 import { ZodError } from "zod";
 
+import {
+  DomainError,
+  ValidationDomainError,
+  isDomainError,
+} from "@/lib/server/errors";
+
 export function json(data: unknown, status = 200) {
   return Response.json(data, { status });
 }
@@ -31,6 +37,21 @@ export function zodErrorResponse(error: ZodError) {
     },
     422,
   );
+}
+
+export function domainErrorResponse(error: DomainError) {
+  if (error instanceof ValidationDomainError && error.details) {
+    return json(error.details, error.status);
+  }
+
+  return json({ message: error.message }, error.status);
+}
+
+export function toRouteErrorResponse(error: unknown) {
+  if (isDomainError(error)) {
+    return domainErrorResponse(error);
+  }
+  throw error;
 }
 
 export function parseId(value: string) {

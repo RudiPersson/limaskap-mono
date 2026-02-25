@@ -2,13 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
-import { GetApiOrganizationsSubdomainBySubdomainResponse } from "@/lib/sdk";
+import type { OrganizationWithProgramCountsDto } from "@/features/organizations/server/contracts";
 import { formatPrice } from "@/lib/utils";
 
 const ClickableProgramName = ({
   program,
 }: {
-  program: GetApiOrganizationsSubdomainBySubdomainResponse["programs"][0];
+  program: OrganizationWithProgramCountsDto["programs"][0];
 }) => {
   const router = useRouter();
 
@@ -27,7 +27,7 @@ const ClickableProgramName = ({
 };
 
 export const columns: ColumnDef<
-  GetApiOrganizationsSubdomainBySubdomainResponse["programs"][0]
+  OrganizationWithProgramCountsDto["programs"][0]
 >[] = [
   {
     accessorKey: "name",

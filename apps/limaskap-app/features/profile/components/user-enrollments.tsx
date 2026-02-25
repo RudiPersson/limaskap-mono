@@ -1,4 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { UserEnrollmentDto } from "@/features/profile/server/contracts";
+import { getUserEnrollments } from "@/features/profile/server/service";
 import {
   Table,
   TableBody,
@@ -7,15 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getServerViewer } from "@/lib/server/session";
 import { formatPrice } from "@/lib/utils";
-import {
-  getApiUserEnrollments,
-  type GetApiUserEnrollmentsResponses,
-} from "@/lib/sdk";
-import { headers } from "next/headers";
 import React from "react";
 
-type Enrollment = GetApiUserEnrollmentsResponses[200][0];
+type Enrollment = UserEnrollmentDto;
 
 function getStatusDisplay(status: Enrollment["enrollmentStatus"]) {
   switch (status) {
@@ -37,10 +35,19 @@ function formatDateRange(startDate: string, endDate: string) {
 }
 
 export default async function UserEnrollments() {
-  const { data: enrollments, error } = await getApiUserEnrollments({
-    cache: "no-store",
-    headers: await headers(),
-  });
+  const viewer = await getServerViewer();
+  let enrollments: Enrollment[] = [];
+  let error: Error | null = null;
+
+  if (!viewer) {
+    error = new Error("Unauthorized");
+  } else {
+    try {
+      enrollments = await getUserEnrollments(viewer);
+    } catch (caught) {
+      error = caught instanceof Error ? caught : new Error("Unknown error");
+    }
+  }
 
   return (
     <Card>
@@ -66,7 +73,7 @@ export default async function UserEnrollments() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {(enrollments ?? []).map((enrollment) => {
+              {enrollments.map((enrollment) => {
                 const statusDisplay = getStatusDisplay(
                   enrollment.enrollmentStatus
                 );

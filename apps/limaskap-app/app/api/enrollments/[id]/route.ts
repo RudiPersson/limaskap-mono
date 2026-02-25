@@ -1,4 +1,4 @@
-import { db } from "@/lib/server/db";
+import { getEnrollmentById } from "@/features/enrollments/server/service";
 import { notFound, parseId } from "@/lib/server/http";
 
 export const runtime = "nodejs";
@@ -11,11 +11,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     return Response.json({ message: "Invalid id" }, { status: 422 });
   }
 
-  const enrollment = await db.query.enrollmentTable.findFirst({
-    where(fields, operators) {
-      return operators.eq(fields.id, id);
-    },
-  });
+  const enrollment = await getEnrollmentById(id);
 
   if (!enrollment) {
     return notFound("Enrollment not found");

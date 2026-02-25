@@ -9,12 +9,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { EditMemberForm } from "@/features/profile/components/forms/edit-member-form";
-import type { GetApiUserMembersResponses } from "@/lib/sdk";
-
-type Member = GetApiUserMembersResponses[200][number];
+import type { UserMember } from "@/features/profile/types";
 
 type EditMemberDialogProps = {
-  member: Member;
+  member: UserMember;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };

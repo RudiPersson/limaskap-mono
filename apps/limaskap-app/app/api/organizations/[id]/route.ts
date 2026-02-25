@@ -1,4 +1,4 @@
-import { db } from "@/lib/server/db";
+import { getOrganizationById } from "@/features/organizations/server/service";
 import { notFound, parseId } from "@/lib/server/http";
 
 export const runtime = "nodejs";
@@ -11,11 +11,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     return Response.json({ message: "Invalid id" }, { status: 422 });
   }
 
-  const organization = await db.query.organizationTable.findFirst({
-    where(fields, operators) {
-      return operators.eq(fields.id, id);
-    },
-  });
+  const organization = await getOrganizationById(id);
 
   if (!organization) {
     return notFound();

@@ -4,10 +4,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 
 import { ArrowUpDown } from "lucide-react";
-import { GetApiOrganizationsResponse } from "@/lib/sdk";
+import type { OrganizationDto } from "@/features/organizations/server/contracts";
 import { protocol, rootDomain } from "@/lib/utils";
 
-export const columns: ColumnDef<GetApiOrganizationsResponse[0]>[] = [
+export const columns: ColumnDef<OrganizationDto>[] = [
   {
     accessorKey: "name",
     header: "Name",

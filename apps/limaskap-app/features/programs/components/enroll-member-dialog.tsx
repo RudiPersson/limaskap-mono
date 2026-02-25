@@ -17,11 +17,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
+import type { UserMember } from "@/features/profile/types";
 import { useQuery } from "@tanstack/react-query";
 import { getApiUserMembersOptions } from "@/lib/sdk/@tanstack/react-query.gen";
-import type {
-  GetApiProgramsByIdResponse,
-} from "@/lib/sdk";
+import type { ProgramDto } from "@/features/programs/server/contracts";
 import { useState, useTransition } from "react";
 import { createEnrollment } from "@/features/programs/server/actions/enrollments";
 import { toast } from "sonner";
@@ -29,7 +28,7 @@ import { Mars, Venus } from "lucide-react";
 import { calculateAge } from "@/lib/utils";
 
 type EnrollMemberDialogProps = {
-  program: GetApiProgramsByIdResponse;
+  program: ProgramDto;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };
@@ -43,12 +42,13 @@ export default function EnrollMemberDialog({
   const [isPending, startTransition] = useTransition();
 
   const {
-    data: members,
+    data: membersRaw,
     error,
     isLoading,
   } = useQuery({ ...getApiUserMembersOptions() });
+  const members = (membersRaw as UserMember[] | undefined) ?? [];
 
-  const selectedMember = members?.find(
+  const selectedMember = members.find(
     (member) => member.id.toString() === selectedMemberId
   );
 
@@ -103,7 +103,7 @@ export default function EnrollMemberDialog({
               <div className="mt-2 p-3 border rounded-md text-destructive">
                 Error loading members: {error.message}
               </div>
-            ) : !members || members.length === 0 ? (
+            ) : members.length === 0 ? (
               <div className="mt-2 p-3 border rounded-md text-muted-foreground">
                 No members found. Please create a member first.
               </div>
@@ -178,7 +178,7 @@ export default function EnrollMemberDialog({
           </Button>
           <Button
             onClick={handleEnroll}
-            disabled={!selectedMemberId || isPending || !members?.length}
+            disabled={!selectedMemberId || isPending || !members.length}
           >
             {isPending ? "Enrolling..." : "Enroll Member"}
           </Button>

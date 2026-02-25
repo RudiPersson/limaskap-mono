@@ -1,47 +1,29 @@
-import { auth } from "@/lib/server/auth";
-import { db } from "@/lib/server/db";
-import { createUserMemberRecordSchema, memberRecordTable } from "@/lib/server/db/schema/member-record";
-import { unauthorized, zodErrorResponse } from "@/lib/server/http";
+import {
+  createUserMember,
+  getUserMembers,
+} from "@/features/profile/server/service";
+import { toRouteErrorResponse } from "@/lib/server/http";
+import { getViewerFromHeaders } from "@/lib/server/session";
 
 export const runtime = "nodejs";
 
 export async function GET(request: Request) {
-  const session = await auth.api.getSession({ headers: request.headers });
-
-  if (!session) {
-    return unauthorized();
+  const viewer = await getViewerFromHeaders(request.headers);
+  try {
+    const memberRecords = await getUserMembers(viewer);
+    return Response.json(memberRecords);
+  } catch (error) {
+    return toRouteErrorResponse(error);
   }
-
-  const memberRecords = await db.query.memberRecordTable.findMany({
-    where(fields, operators) {
-      return operators.eq(fields.userId, session.user.id);
-    },
-  });
-
-  return Response.json(memberRecords);
 }
 
 export async function POST(request: Request) {
-  const session = await auth.api.getSession({ headers: request.headers });
-
-  if (!session) {
-    return unauthorized();
-  }
-
+  const viewer = await getViewerFromHeaders(request.headers);
   const body = await request.json().catch(() => null);
-  const parsed = createUserMemberRecordSchema.safeParse(body);
-
-  if (!parsed.success) {
-    return zodErrorResponse(parsed.error);
+  try {
+    const created = await createUserMember(viewer, body);
+    return Response.json(created, { status: 201 });
+  } catch (error) {
+    return toRouteErrorResponse(error);
   }
-
-  const [created] = await db
-    .insert(memberRecordTable)
-    .values({
-      ...parsed.data,
-      userId: session.user.id,
-    })
-    .returning();
-
-  return Response.json(created, { status: 201 });
 }

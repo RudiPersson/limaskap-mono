@@ -5,28 +5,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getOrganizationProgramsBySubdomain } from "@/features/organizations/server/service";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import { getApiOrganizationsSubdomainBySubdomain } from "@/lib/sdk";
 
 export default async function OrganizationProgramsTable({
   subdomain,
 }: {
   subdomain: string;
 }) {
-  const { data, error } = await getApiOrganizationsSubdomainBySubdomain({
-    cache: "no-store",
-    path: {
-      subdomain,
-    },
-  });
-
+  const data = await getOrganizationProgramsBySubdomain(subdomain);
   if (!data) {
     return <div>No data</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
   }
 
   return (

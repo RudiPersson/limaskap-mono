@@ -28,13 +28,11 @@ import {
   patchApiUserMembersByIdMutation,
   getApiUserMembersOptions,
 } from "@/lib/sdk/@tanstack/react-query.gen";
-import type { GetApiUserMembersResponses } from "@/lib/sdk";
+import type { UserMember } from "@/features/profile/types";
 import { formatApiError } from "@/lib/utils";
 
-type Member = GetApiUserMembersResponses[200][number];
-
 type EditMemberFormProps = {
-  member: Member;
+  member: UserMember;
   onSuccess?: () => void;
 };
 
@@ -71,10 +69,12 @@ export function EditMemberForm({ member, onSuccess }: EditMemberFormProps) {
   });
 
   async function onSubmit(values: z.infer<typeof profileMemberSchema>) {
-    await mutation.mutateAsync({
-      path: { id: member.id },
-      body: values,
-    });
+    await mutation.mutateAsync(
+      {
+        path: { id: member.id },
+        body: values,
+      } as never
+    );
   }
 
   return (

@@ -5,22 +5,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getOrganizations } from "@/features/organizations/server/service";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import { getApiOrganizations } from "@/lib/sdk";
 
 export default async function OrganizationTable() {
-  const { data, error } = await getApiOrganizations({
-    cache: "no-store",
-  });
-
-  if (!data) {
-    return <div>No data</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const data = await getOrganizations();
 
   return (
     <div className="container mx-auto py-10">

@@ -13,8 +13,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { UserMember } from "@/features/profile/types";
 import { calculateAge } from "@/lib/utils";
-import type { GetApiUserMembersResponses } from "@/lib/sdk";
 // import { getUserMembers } from "@/lib/sdk";
 // import { headers } from "next/headers";
 import { Mars, MoreHorizontal, Venus, Pencil } from "lucide-react";
@@ -26,9 +26,9 @@ import { useQuery } from "@tanstack/react-query";
 import UserMembersSkeleton from "./skeletons/user-members-skeleton";
 
 export default function UserMembers() {
-  const [editingMember, setEditingMember] = React.useState<
-    GetApiUserMembersResponses[200][number] | null
-  >(null);
+  const [editingMember, setEditingMember] = React.useState<UserMember | null>(
+    null
+  );
 
   const {
     data: members,
@@ -55,7 +55,7 @@ export default function UserMembers() {
     );
   }
 
-  const safeMembers = members ?? ([] as GetApiUserMembersResponses[200]);
+  const safeMembers = (members as UserMember[] | undefined) ?? [];
 
   // Handle empty state
   if (safeMembers.length === 0) {
